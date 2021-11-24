@@ -1,0 +1,63 @@
+<h3 class="text-center">Тест: "Колесо баланса"</h3>
+<div class="main-box">
+  <div [hidden]="resultView">
+    <div>Вопрос {{currentQuestion + 1}} из {{this.questions.length}}:</div>
+    <h2 class="">{{this.questions[currentQuestion].question}}</h2>
+    <div class="decript-box">{{this.questions[currentQuestion].description}}</div>
+    <div>
+      <form [formGroup]="form">
+        <div class="form-check text-question" *ngFor="let item of this.questions[currentQuestion].answers">
+          <input class="form-check-input" type="radio" formControlName="answer" [value]="item.text">
+          <label class="form-check-label">
+            {{item.text}}
+          </label>
+        </div>
+      </form>
+    </div>
+    <div class="btn-answer">
+      <button type="submit" class="btn btn-primary" (click)="nextQuestion()" [attr.disabled]="this.form.value.answer ? null : ''">Ответить</button>
+    </div>
+  </div>
+  <div [hidden]="!resultView">
+    <h3>Ваш результат:</h3>
+    <table class="table">
+
+      <thead>
+      <tr>
+        <th scope="col">Аспект питания</th>
+        <th scope="col">Количество баллов</th>
+        <th scope="col">Максимальный резултат</th>
+        <th scope="col">Проценты</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let key of this.stat">
+        <th scope="row">{{key.group}}</th>
+        <td style="text-align: right">{{key.score}}</td>
+        <td style="text-align: right">{{key.total}}</td>
+        <td style="text-align: center">{{key.score/key.total * 100 | number : '1.2-2' }}%</td>
+      </tr>
+      </tbody>
+    </table>
+    <h3>Ваши ответы:</h3>
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Аспект питания</th>
+        <th scope="col">Вопрос</th>
+        <th scope="col">Ваш ответ</th>
+        <th scope="col">Желательный ответ</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let q of this.questions" [ngClass]="q.selectAnswer === rigthAnswer(q.answers) ? 'r-answer' : 'w-answer'">
+        <th>{{q.group}}</th>
+        <td>{{q.question}}</td>
+        <td>{{q.selectAnswer}}</td>
+        <td>{{rigthAnswer(q.answers)}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

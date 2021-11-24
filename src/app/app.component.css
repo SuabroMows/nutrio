@@ -1,0 +1,24 @@
+.main-box {
+  margin: 50px auto;
+  width: 60%;
+}
+
+.btn-answer {
+  margin-top: 10px;
+}
+
+.text-question{
+  margin-top: 5px;
+}
+
+.decript-box {
+  margin-bottom: 30px;
+}
+
+.r-answer {
+  background-color: lightgreen;
+}
+
+.w-answer {
+  background-color: yellow;
+}
